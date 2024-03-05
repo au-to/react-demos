@@ -1,6 +1,7 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import './index.css'
 import Comment from './comment/index'
+import Father from "./father"
 
 const isLogin = true
 const articleType = 0
@@ -69,6 +70,13 @@ function App () {
 
   // 表单双向绑定
   const [value, setValue] = useState(123)
+  
+  // 获取dom元素
+  const eleRef = useRef(null)
+  const showDom = () => {
+    const dom = eleRef.current
+    console.log(dom, '----dom----');
+  }
   return (
     <div className="App">
       {/* 使用引号传递字符串 */}
@@ -105,7 +113,12 @@ function App () {
       <div className="foo">定义类名</div>
       <Comment></Comment>
       {/* 表单双向绑定 */}
-      <input type="text" value={value} onChange={(e) => setValue(e.target.value)}/>
+      <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
+      {/* 获取dom元素 */}
+      <p ref={eleRef}>我是p标签</p>
+      <button onClick={showDom}>获取dom元素</button>
+      {/* 组件传参 */}
+      <Father></Father>
     </div>
   )
 }

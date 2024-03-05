@@ -65,12 +65,14 @@ const tabs = [
 const Comments = () => {
   // 列表数据
   const [list, setList] = useState(defaultList)
+
   // 删除评论
   const handleDelete = (id) => {
     setList(list.filter((item) =>
       item.rpid !== id
     ))
   }
+
   // tab切换
   const [type, setType] = useState('hot')
   const handleTabChange = (type) => {
@@ -82,6 +84,26 @@ const Comments = () => {
       // 按点赞数排序---最热
       setList(_.orderBy(list, 'like', 'desc'))
     }
+  }
+
+  // 发布评论
+  const [content, setContent] = useState('')
+  const handlePublic = () => {
+    const comItem = {
+      rpid: 4,
+      user: {
+        uid: '1234344342',
+        avatar,
+        uname: '黑马前端',
+      },
+      content,
+      ctime: '10-19 09:10',
+      like: 68,
+    }
+    setList([
+      ...list,
+      comItem
+    ])
   }
   return (
     <div className="app">
@@ -118,10 +140,12 @@ const Comments = () => {
             <textarea
               className="reply-box-textarea"
               placeholder="发一条友善的评论"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
             />
             {/* 发布按钮 */}
             <div className="reply-box-send">
-              <div className="send-text">发布</div>
+              <div className="send-text" onClick={handlePublic}>发布</div>
             </div>
           </div>
         </div>
