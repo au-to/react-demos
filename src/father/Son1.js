@@ -8,3 +8,12 @@ function Son1 ({count,onClick}) {
 }
 
 export default Son1
+
+// 也可以通过props属性接受父组件传递下来的参数
+function Example (props) {
+  return (
+    <div className="example">
+      <Son1 {...props}></Son1>
+    </div>
+  )
+}
