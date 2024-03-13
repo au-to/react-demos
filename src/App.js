@@ -48,6 +48,9 @@ const spanStyle = {
   fontSize: '30px'
 }
 
+// 纯函数
+// 对于相同的输入，react组件总是返回相同的jsx
+
 function App () {
   // 使用useState修改状态常量
   const [number, setNumber] = useState(0);
