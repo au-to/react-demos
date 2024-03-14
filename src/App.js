@@ -80,7 +80,17 @@ function App () {
     const dom = eleRef.current
     console.log(dom, '----dom----');
   }
-  return (
+
+  // 阻止事件冒泡
+  const handleDefaultClick = () => {
+    console.log('阻止事件冒泡');
+  }
+
+  // 事件捕获
+  const handleCapture = () => {
+    console.log('事件捕获');
+  }
+  return ( 
     <div className="App">
       {/* 使用引号传递字符串 */}
       <span>{'this is a string'}</span><br />
@@ -122,6 +132,10 @@ function App () {
       <button onClick={showDom}>获取dom元素</button>
       {/* 组件传参 */}
       <Father></Father>
+      {/* 阻止事件冒泡 */}
+      <button onClick={(e) => { e.stopPropagation(); handleDefaultClick() }}>阻止事件冒泡</button>
+      {/* 事件捕获 */}
+      <button onClickCapture={handleDefaultClick}>事件捕获</button>
     </div>
   )
 }
