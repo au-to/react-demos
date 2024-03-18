@@ -135,7 +135,7 @@ function App () {
       {/* 阻止事件冒泡 */}
       <button onClick={(e) => { e.stopPropagation(); handleDefaultClick() }}>阻止事件冒泡</button>
       {/* 事件捕获 */}
-      <button onClickCapture={handleDefaultClick}>事件捕获</button>
+      <button onClickCapture={handleCapture}>事件捕获</button>
     </div>
   )
 }
