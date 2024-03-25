@@ -1,4 +1,5 @@
 import { useState, useRef } from "react"
+import { useImmer } from "use-immer"
 import './index.css'
 import Comment from './comment/index'
 import Father from "./father"
@@ -73,7 +74,7 @@ function App () {
 
   // 表单双向绑定
   const [value, setValue] = useState(123)
-  
+
   // 获取dom元素
   const eleRef = useRef(null)
   const showDom = () => {
@@ -90,7 +91,29 @@ function App () {
   const handleCapture = () => {
     console.log('事件捕获');
   }
-  return ( 
+
+  // 更新state中的对象
+  const [position, setPosition] = useState({
+    x: 0,
+    y: 0
+  })
+  function getPosition (e) {
+    setPosition({
+      ...position,
+      x: e.clientX,
+      y: e.clientY
+    })
+  }
+
+  // 更新state中的数组
+  const [examArr, updateExamArr] = useImmer([{ name: 'zhao', id: 0 }, { name: 'hou', id: 1 }]);
+  function handleUpdateArr () {
+    updateExamArr((draft) => {
+      const ele = draft.find(e => e.name === 'zhao')
+      ele.name = 'wang'
+    })
+  }
+  return (
     <div className="App">
       {/* 使用引号传递字符串 */}
       <span>{'this is a string'}</span><br />
@@ -136,6 +159,11 @@ function App () {
       <button onClick={(e) => { e.stopPropagation(); handleDefaultClick() }}>阻止事件冒泡</button>
       {/* 事件捕获 */}
       <button onClickCapture={handleCapture}>事件捕获</button>
+      {/* 更新state中的对象 */}
+      <p onClick={e => getPosition(e)}>{position.x},{position.y}</p>
+      {/* 更新state中的数组 */}
+      <p>更新数组元素：{examArr.map(item => <li key={item.id}>{item.name}</li>)}</p>
+      <button onClick={handleUpdateArr}>更新数组元素</button>
     </div>
   )
 }
