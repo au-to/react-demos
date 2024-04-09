@@ -1,8 +1,11 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { useImmer } from "use-immer"
 import './index.css'
 import Comment from './comment/index'
 import Father from "./father"
+import { increment, decrement } from "./store/counterStore"
+import { useDispatch, useSelector } from 'react-redux'
+
 
 const isLogin = true
 const articleType = 0
