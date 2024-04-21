@@ -1,11 +1,15 @@
+
 import { useState, useRef, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { increment, decrement } from "./store/counterStore"
 import { useImmer } from "use-immer"
-import './index.css'
 import Comment from './comment/index'
 import Father from "./father"
-import { increment, decrement } from "./store/counterStore"
-import { useDispatch, useSelector } from 'react-redux'
-
+import Context from './context'
+import './index.css'
+import useConter from "./hooks/useConter"
+import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const isLogin = true
 const articleType = 0
@@ -56,6 +60,21 @@ const spanStyle = {
 // 对于相同的输入，react组件总是返回相同的jsx
 
 function App () {
+  // 模拟异步请求
+  const simulateFetch = function () {
+    setTimeout(() => {
+      console.log('这是一个模拟的异步请求');
+    }, 1000);
+  }
+
+  // 使用store
+  const dispatch = useDispatch();
+  const storeCounter = useSelector(state => state.counter.count)
+  // 使用useEffect触发异步请求
+  useEffect(() => {
+    simulateFetch()
+  })
+
   // 使用useState修改状态常量
   const [number, setNumber] = useState(0);
   const addNumber = () => {
@@ -116,6 +135,12 @@ function App () {
       ele.name = 'wang'
     })
   }
+
+  // 使用自定义hook
+  const { hookCount, hookIncrement, hookDecrement } = useConter(0, 10);
+
+  // 使用编程式导航
+  // const navigate = useNavigate();
   return (
     <div className="App">
       {/* 使用引号传递字符串 */}
@@ -167,6 +192,22 @@ function App () {
       {/* 更新state中的数组 */}
       <p>更新数组元素：{examArr.map(item => <li key={item.id}>{item.name}</li>)}</p>
       <button onClick={handleUpdateArr}>更新数组元素</button>
+      <h3>store的使用</h3>
+      <h4>我是store中的count：{storeCounter}</h4>
+      <button onClick={() => dispatch(increment())}>Increment</button>
+      <button onClick={() => dispatch(decrement())}>Decrement</button>
+      {/* context跨组件通信 */}
+      <Context></Context>
+      {/* 使用自定义hook */}
+      <div>
+        {hookCount}
+        <button onClick={hookIncrement}>加</button>
+        <button onClick={hookDecrement}>减</button>
+      </div>
+      {/* <div>
+        <Link to="/about">关于</Link>
+        <button onClick={() => navigate('/login')}>登录</button>
+      </div> */}
     </div>
   )
 }

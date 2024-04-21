@@ -1,3 +1,5 @@
+/* 父子通信 */
+
 import Son1 from "./Son1"
 import Son2 from "./Son2"
 import { useState } from "react"
