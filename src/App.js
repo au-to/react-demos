@@ -8,8 +8,8 @@ import Father from "./father"
 import Context from './context'
 import './index.css'
 import useConter from "./hooks/useConter"
-import { Link } from "react-router-dom"
-import { useNavigate } from "react-router-dom"
+// import { Link } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 
 const isLogin = true
 const articleType = 0
