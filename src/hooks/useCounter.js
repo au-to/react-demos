@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-function useConter (initalValue, step) {
+function useCounter (initalValue, step) {
   const [hookCount, setHookCount] = useState(initalValue);
   const hookIncrement = () => {
     setHookCount(preCunt => preCunt + step);
@@ -15,4 +15,4 @@ function useConter (initalValue, step) {
   return { hookCount, hookIncrement, hookDecrement };
 }
 
-export default useConter
+export default useCounter

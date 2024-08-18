@@ -1,16 +1,16 @@
-import Login from "../pages/login";
-import About from "../pages/about";
-import { BrowserRouter as Router } from "react-router-dom";
+import Login from "../routes/login";
+import About from "../routes/about";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-Router([
-  {
-    path: '/login',
-    element: Login
-  },
-  {
-    path: 'about',
-    element: About
-  }
-])
+function AppRoutes() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </Router>
+  );
+}
 
-export default Router;
+export default AppRoutes;
