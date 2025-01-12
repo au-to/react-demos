@@ -1,1 +1,1 @@
-Notes and demos about learning React
+Notes and demos about learning react.
